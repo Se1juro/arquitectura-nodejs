@@ -6,6 +6,7 @@ module.exports={
         const page = parseInt((req.query.page || 0).toString(),10);
         const limit = parseInt((req.query.limit||10).toString(),10);
         const users = await userModel.getUsers(page,limit);
+        //console.log(users)
         return res.send(userDto.multiple(users,req.user));
     },
     async getUser(req,res){
