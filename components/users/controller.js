@@ -1,5 +1,7 @@
 const userModel = require("./model");
 const userDto = require("./dto");
+const { encryptData } = require("../../services/encryptData/");
+const { createSessionUser } = require("../../services/loggin/");
 
 module.exports = {
   async getUsers(req, res) {
@@ -14,20 +16,18 @@ module.exports = {
     return res.send(userDto.single(user, req.user));
   },
   async createUser(req, res) {
+    const password = await encryptData(req.body.password);
     const user = await userModel.createUser({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: password,
     });
     return res.send(userDto.single(user, req.user));
   },
   async loginUser(req, res) {
-    if (!req.body.username) return res.sendStatus(400);
-    if (!req.body.password) return res.sendStatus(400);
-    const user = await userModel.loginUser({
-      username: req.body.username,
-      password: req.body.password,
-    });
-    return res.send(userDto.single(user, req.user));
+    const user = await userModel.loginUser(req.body.email);
+    const returnUser = userDto.single(user);
+    createSessionUser(req, res, returnUser);
+    return res.send(returnUser);
   },
 };

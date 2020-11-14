@@ -28,10 +28,18 @@ module.exports = {
       });
     });
   },
-  async loginUser({ username }) {
+  async loginUser(email) {
     return new Promise((resolve, reject) => {
-      UserSchema.findOne({ username: username }).exec((err, doc) => {
+      UserSchema.findOne({ email }).exec((err, doc) => {
         if (err) reject(err);
+        return resolve(doc);
+      });
+    });
+  },
+  async findUserByEmailAndExists({ email }) {
+    return new Promise((resolve, reject) => {
+      UserSchema.exists({ email }, (err, doc) => {
+        if (err) return reject(err);
         return resolve(doc);
       });
     });
