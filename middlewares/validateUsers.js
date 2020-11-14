@@ -1,5 +1,4 @@
 const { findUserByEmailAndExists } = require("../components/users/dao");
-const sessionController = require("../components/Sessions/controller");
 const passport = require("passport");
 module.exports.validatePostUser = (req, res, next) => {
   if (!req.body.username) return res.sendStatus(400);
