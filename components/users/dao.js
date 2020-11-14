@@ -2,7 +2,7 @@ const UserSchema = require("../../services/db/UserSchema");
 module.exports = {
   async getUsers(page, limit) {
     return new Promise((resolve, reject) =>
-      UserSchema.find({}).skip(page*limit).limit(limit).exec((err, docs) => {
+      UserSchema.find({}).skip((page-1)*limit).limit(limit).exec((err, docs) => {
         if (err) return reject(err);
         return resolve(docs);
       })
