@@ -15,6 +15,7 @@ app.use(
     secret: process.env.SECRETTOKEN,
     saveUninitialized: false,
     resave: true,
+    name:process.env.SECRETTOKEN,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 2 * 24 * 60 * 60, //Duracion de la cookie
