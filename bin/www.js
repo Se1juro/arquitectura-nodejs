@@ -3,16 +3,15 @@
 /**
  * Module dependencies.
  */
-
+const config = require("config");
 var app = require('../app');
 var debug = require('debug')('express-good-example:server');
 var http = require('http');
-
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4044');
+var port = normalizePort(config.get('server.port'));
 app.set('port', port);
 
 /**

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'); 
 const config = require('config')
-const DB_URI = config.get(process.env.NODE_ENV+".Server.dbConfig.DB_URI");
+const DB_URI = `mongodb://${config.get('mongodb.host')}:${config.get('mongodb.PORT')}/PruebaArquitectura`;
 mongoose
     .connect(DB_URI, {
         useNewUrlParser: true,

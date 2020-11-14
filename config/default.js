@@ -1,18 +1,18 @@
 module.exports = {
-  development: {
-    Server: {
-      PORT: process.env.PORT,
-      dbConfig: {
-        DB_URI: process.env.DB_URI,
-      },
-    },
+  server: {
+    port: 4044,
+    domain: "localhost",
   },
-  production: {
-    Server: {
-      PORT: process.env.PORT,
-      dbConfig: {
-        DB_URI: process.env.DB_URI,
-      },
-    },
+  //Base de datos
+  mongodb: {
+    PORT: 27017,
+    host: "localhost",
   },
+  redis: {},
+  //configuracion de email
+  email: {
+    user: "xx@xx.com",
+    password: "xxxx",
+  },
+  logger: "dev",
 };
