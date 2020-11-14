@@ -8,12 +8,12 @@ module.exports = {
     const page = parseInt((req.query.page || 1).toString(), 10);
     const limit = parseInt((req.query.limit || 10).toString(), 10);
     const users = await userModel.getUsers(page, limit);
-    return res.send(userDto.multiple(users, req.user));
+    return res.status(200).json(userDto.multiple(users, req.user));
   },
   async getUser(req, res) {
     const user = await userModel.getUser(req.params.id);
     if (!user) return res.sendStatus(404);
-    return res.send(userDto.single(user, req.user));
+    return res.status(200).json(userDto.single(user, req.user));
   },
   async createUser(req, res) {
     const password = await encryptData(req.body.password);
@@ -22,12 +22,13 @@ module.exports = {
       email: req.body.email,
       password: password,
     });
-    return res.send(userDto.single(user, req.user));
+    return res.status(200).json(userDto.single(user, req.user));
   },
   async loginUser(req, res) {
     const user = await userModel.loginUser(req.body.email);
     const returnUser = userDto.single(user);
     createSessionUser(req, res, returnUser);
-    return res.send(returnUser);
+    console.log(req.session.id);
+    return res.status(200).json(returnUser);
   },
 };

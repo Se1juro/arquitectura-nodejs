@@ -1,6 +1,6 @@
 const { findUserByEmailAndExists } = require("../components/users/dao");
+const sessionController = require("../components/Sessions/controller");
 const passport = require("passport");
-
 module.exports.validatePostUser = (req, res, next) => {
   if (!req.body.username) return res.sendStatus(400);
   if (!req.body.email) return res.sendStatus(400);
@@ -12,7 +12,7 @@ module.exports.validateExistsUser = (req, res, next) => {
   next();
 };
 module.exports.authLoginWithPassport = (req, res, next) => {
-  passport.authenticate("login", (err, user, info) => {
+  passport.authenticate("login", (err, user) => {
     if (err) {
       return next(err);
     }
@@ -24,7 +24,13 @@ module.exports.authLoginWithPassport = (req, res, next) => {
     }
   })(req, res, next);
 };
-module.exports.validateSessionUser = (req, res, next) => {
-  console.log(req.session);
+module.exports.validateSessionUser = async (req, res, next) => {
+  if (!req.session.data) {
+    return res.status(401).json({
+      status: "Error",
+      message: "Unauthorized",
+    });
+  }
+  console.log(req.session.data);
   next();
 };

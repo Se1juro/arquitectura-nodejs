@@ -22,7 +22,6 @@ app.use(
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 2 * 24 * 60 * 60, //Duracion de la cookie
-      touchAfter: 24 * 3600, //Periodo en el que se actualiza la session
       secret: process.env.SECRETTOKEN,
     }),
   })
