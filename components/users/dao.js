@@ -2,10 +2,13 @@ const UserSchema = require("../../services/db/UserSchema");
 module.exports = {
   async getUsers(page, limit) {
     return new Promise((resolve, reject) =>
-      UserSchema.find({}).skip((page-1)*limit).limit(limit).exec((err, docs) => {
-        if (err) return reject(err);
-        return resolve(docs);
-      })
+      UserSchema.find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec((err, docs) => {
+          if (err) return reject(err);
+          return resolve(docs);
+        })
     );
   },
   async getUser(id) {
@@ -22,6 +25,14 @@ module.exports = {
       newUser.save((err, docs) => {
         if (err) reject(err);
         return resolve(docs);
+      });
+    });
+  },
+  async loginUser({ username }) {
+    return new Promise((resolve, reject) => {
+      UserSchema.findOne({ username: username }).exec((err, doc) => {
+        if (err) reject(err);
+        return resolve(doc);
       });
     });
   },

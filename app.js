@@ -9,13 +9,14 @@ const { error404Handler, errorHandler } = require("./middlewares");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const mongoose = require("mongoose");
+const passport = require("passport");
 require("./database/index");
 app.use(
   session({
     secret: process.env.SECRETTOKEN,
     saveUninitialized: false,
     resave: true,
-    name:process.env.SECRETTOKEN,
+    name: process.env.SECRETTOKEN,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 2 * 24 * 60 * 60, //Duracion de la cookie

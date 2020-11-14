@@ -9,4 +9,7 @@ module.exports = {
   async createUser(user) {
     return userDao.createUser(user);
   },
+  async loginUser(user) {
+    return userDao.loginUser(user);
+  },
 };
