@@ -8,7 +8,7 @@ const app = express();
 const cors = require("cors");
 const routes = require("./routes/routes");
 const { error404Handler, errorHandler } = require("./middlewares");
-app.use(morgan("dev"));
+app.use(morgan(config.get('logger')));
 app.use(cors());
 app.use(express.json({ limit: "10mb", extended: true }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));

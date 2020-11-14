@@ -5,8 +5,7 @@ module.exports = {
   },
   //Base de datos
   mongodb: {
-    PORT: 27017,
-    host: "localhost",
+    dbUri: "mongodb://localhost:27017/PruebaArquitectura",
   },
   redis: {},
   //configuracion de email
