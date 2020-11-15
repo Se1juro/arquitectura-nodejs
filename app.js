@@ -19,6 +19,10 @@ app.use(
     saveUninitialized: false,
     resave: true,
     name: process.env.SECRETTOKEN,
+    cookie: {
+      httpOnly: true,
+      secure: false, //Cambiar en producción
+    },
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       ttl: 2 * 24 * 60 * 60, //Duracion de la cookie

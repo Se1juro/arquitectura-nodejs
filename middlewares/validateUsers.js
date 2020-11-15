@@ -30,6 +30,5 @@ module.exports.validateSessionUser = async (req, res, next) => {
       message: "Unauthorized",
     });
   }
-  console.log(req.session.data);
   next();
 };
